@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.30)
+
+project(memorymodule VERSION 0.0.0.0 DESCRIPTION "" LANGUAGES C CXX)
+
+if(MSVC) 
+    # https://huffer342-wsh.github.io/posts/myNotes/guide/Solve_the_problem_of_CMake_printing_a_lot_of_included_information_when_building_with_MSVC
+    string(REPLACE "/showIncludes" "" CMAKE_DEPFILE_FLAGS_C "${CMAKE_DEPFILE_FLAGS_C}")
+    string(REPLACE "/showIncludes" "" CMAKE_DEPFILE_FLAGS_CXX "${CMAKE_DEPFILE_FLAGS_CXX}")
+endif()
+
+add_library(memorymodule STATIC)
+file(GLOB_RECURSE memorymodule-inc MemoryModule/*.hxx MemoryModule/*.h)
+file(GLOB_RECURSE memorymodule-src MemoryModule/*.cxx MemoryModule/*.c MemoryModule/*.cpp)
+# message("=> ${memorymodule-inc}")
+# message("=> ${memorymodule-src}")
+set_target_properties(memorymodule PROPERTIES LINK_FLAGS "/ignore:4819 /ignore:4099")
+target_sources(memorymodule PUBLIC ${memorymodule-inc} PRIVATE ${memorymodule-src})
+target_compile_features(memorymodule PRIVATE cxx_std_23 INTERFACE cxx_std_23)
+target_include_directories(memorymodule PUBLIC ${CMAKE_SOURCE_DIR}) 
+# target_link_libraries(memorymodule PRIVATE)
+# target_compile_definitions(memorymodule PRIVATE RTI="${CMAKE_SOURCE_DIR}")
+if(MSVC)
+    target_compile_options(memorymodule PRIVATE "/utf-8")
+endif()
+# target_link_options(memorymodule PRIVATE /PROFILE)
+# set_target_properties(memorymodule PROPERTIES LINK_FLAGS "/PROFILE")

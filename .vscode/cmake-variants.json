@@ -1,0 +1,53 @@
+{
+    "buildType": {
+        "default": "DEB",
+        "choices": {
+            "DEB": {
+                "short": "DEB",
+                "long": "Disables optimizations and includes debug info.",
+                "buildType": "Debug"
+            },
+            "REL": {
+                "short": "REL",
+                "long": "Includes optimizations but no debug info.",
+                "buildType": "Release"
+            },
+            "MIN": {
+                "short": "MIN",
+                "long": "Optimizes for size. No debug info.",
+                "buildType": "MinSizeRel"
+            },
+            "RWD": {
+                "short": "RWD",
+                "long": "Optimizes for speed but also includes debug info.",
+                "buildType": "RelWithDebInfo"
+            }
+        }
+    },
+    "abi": {
+        "default": "x64-windows",
+        "choices": {
+            "x64-windows": {
+                "short": "x64",
+                "long": "x64-windows",
+                "settings": {
+                    "VCPKG_TARGET_TRIPLET": "x64-windows"
+                }
+            },
+            "x64-windows-static": {
+                "short": "x64-s",
+                "long": "x64-windows-static",
+                "settings": {
+                    "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+                }
+            },
+            "x64-windows-static-md": {
+                "short": "x64-smd",
+                "long": "x64-windows-static-md",
+                "settings": {
+                    "VCPKG_TARGET_TRIPLET": "x64-windows-static-md"
+                }
+            }
+        }
+    }
+}
